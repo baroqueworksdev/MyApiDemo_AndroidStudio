@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MyApiDemo</string>
+    <string name="action_settings">Settings</string>
+    <string name="activity_location_client">App/API/LocationClient</string>
+    <string name="activity_slide_panel">App/Views/Slide Panel</string>
+    <string name="activity_drawerlayout">App/Layout/DrawerLayout</string>
+    <string name="activity_swiperefreshlayout">App/Layout/SwipeRefreshLayout</string>
+    <string name="activity_dialog_fragment">App/Dialog/DialogFragment</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="sildingview_contests">
+        sidingview\nsidingview\nsidingview\nsidingview\nsidingview\nsidingview\nsidingview\nsidingview\nsidingview\nsidingview\nsidingview\n
+    </string>
+
+</resources>
