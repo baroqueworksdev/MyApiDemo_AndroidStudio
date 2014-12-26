@@ -11,6 +11,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import android.content.Context;
+import android.media.Image;
 import android.widget.ImageView;
 
 public class SampleVolleyManager {
@@ -24,7 +25,9 @@ public class SampleVolleyManager {
 
     private static SampleVolleyManager sInstance;
 
-    /** Object for synchronized */
+    /**
+     * Object for synchronized
+     */
     private static final Object sLock = new Object();
 
     private RequestQueue mRequestQueue;
@@ -33,7 +36,7 @@ public class SampleVolleyManager {
 
     private SampleVolleyManager(Context context) {
         mRequestQueue = Volley.newRequestQueue(context.getApplicationContext());
-        mImageLoader = new ImageLoader(mRequestQueue, new LruBitmapCache(32*1024 * 1024));
+        mImageLoader = new ImageLoader(mRequestQueue, new LruBitmapCache(32 * 1024 * 1024));
         mRequestQueue.start();
     }
 
@@ -70,14 +73,15 @@ public class SampleVolleyManager {
         }
     }
 
-    public void get(String url, final ResponseListener listener, final ImageView view,
-            final int defaultImageResId, final int errorImageResId) {
+    public ImageListener getImageListener(final ResponseListener listener, final ImageView view,
+                                          final int defaultImageResId, final int errorImageResId) {
+
         ImageListener imageListener = new ImageListener() {
             @Override
             public void onResponse(ImageContainer response, boolean isImmediate) {
                 if (response.getBitmap() != null) {
                     view.setImageBitmap(response.getBitmap());
-                    if(listener != null){
+                    if (listener != null) {
                         listener.onResponse(response.getBitmap());
                     }
 
@@ -95,7 +99,21 @@ public class SampleVolleyManager {
             }
         };
 
-        mImageLoader.get(url,imageListener);
+        return imageListener;
+    }
+
+    public void get(String url, ImageListener listener){
+        mImageLoader.get(url, listener);
+    }
+
+    public void get(String url, ImageListener listener,int maxWidth,int maxHeight){
+        mImageLoader.get(url, listener,maxWidth,maxHeight);
+    }
+
+    public void get(String url, final ResponseListener listener, final ImageView view,
+                    final int defaultImageResId, final int errorImageResId) {
+        ImageListener imageListener = getImageListener(listener, view, defaultImageResId,errorImageResId);
+        mImageLoader.get(url, imageListener);
     }
 
 
