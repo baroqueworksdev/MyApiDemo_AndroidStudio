@@ -131,4 +131,29 @@ public class SampleVolleyManagerTest extends InstrumentationTestCase {
 
     }
 
+    public void testGetImage() throws Exception {
+        final TestResponseListener listener = new TestResponseListener();
+        //request 1
+
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                final String url = "http://developer.android.com/images/training/system-ui.png";
+                SampleVolleyManager instance = SampleVolleyManager.getInstance(
+                        getInstrumentation().getTargetContext());
+
+                ImageView view = new ImageView(getInstrumentation().getTargetContext());
+                instance.get(url, listener, view, R.drawable.ic_launcher, R.drawable.ic_drawer);
+            }
+        });
+        listener.countDownLatch.await(5, TimeUnit.SECONDS);
+
+        {
+
+            assertTrue(listener.isResponse);
+            assertNotNull(listener.data);
+        }
+
+    }
+
 }
