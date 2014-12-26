@@ -3,16 +3,21 @@ package jp.baroqueworksdev.myapidemo.network;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.ImageLoader.ImageListener;
+import com.android.volley.toolbox.ImageLoader.ImageContainer;
+
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import android.content.Context;
+import android.widget.ImageView;
 
 public class SampleVolleyManager {
 
     public interface ResponseListener {
 
-        public void onResponse(String response);
+        public void onResponse(Object response);
 
         public void onErrorResponse(VolleyError volleyError);
     }
@@ -24,8 +29,11 @@ public class SampleVolleyManager {
 
     private RequestQueue mRequestQueue;
 
+    private ImageLoader mImageLoader;
+
     private SampleVolleyManager(Context context) {
         mRequestQueue = Volley.newRequestQueue(context.getApplicationContext());
+        mImageLoader = new ImageLoader(mRequestQueue, new LruBitmapCache(32*1024 * 1024));
         mRequestQueue.start();
     }
 
@@ -39,9 +47,9 @@ public class SampleVolleyManager {
     /**
      * @note create a new GET request and add queue
      */
-    public void getForStringRequest(String url,final ResponseListener listener) {
+    public void get(String url, final ResponseListener listener) {
 
-        if(mRequestQueue != null){
+        if (mRequestQueue != null) {
             StringRequest request = new StringRequest(url,
                     new Response.Listener<String>() {
                         @Override
@@ -60,6 +68,39 @@ public class SampleVolleyManager {
             mRequestQueue.add(request);
         } else {
         }
+    }
+
+    public void get(String url, final ResponseListener listener, final ImageView view,
+            final int defaultImageResId, final int errorImageResId) {
+        ImageListener imageListener = new ImageListener() {
+            @Override
+            public void onResponse(ImageContainer response, boolean isImmediate) {
+                if (response.getBitmap() != null) {
+                    view.setImageBitmap(response.getBitmap());
+                    if(listener != null){
+                        listener.onResponse(response.getBitmap());
+                    }
+
+                } else if (defaultImageResId != 0) {
+                    view.setImageResource(defaultImageResId);
+                }
+            }
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (errorImageResId != 0) {
+                    view.setImageResource(errorImageResId);
+                    listener.onErrorResponse(error);
+                }
+            }
+        };
+
+        mImageLoader.get(url,imageListener);
+    }
+
+
+    public ImageLoader getImageLoader() {
+        return mImageLoader;
     }
 
 }

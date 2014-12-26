@@ -2,11 +2,18 @@ package jp.baroqueworksdev.myapidemo.network;
 
 
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 
 import android.test.InstrumentationTestCase;
+import android.test.UiThreadTest;
+import android.widget.ImageView;
 
+import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+
+import jp.baroqueworksdev.myapidemo.R;
 
 public class SampleVolleyManagerTest extends InstrumentationTestCase {
 
@@ -16,7 +23,7 @@ public class SampleVolleyManagerTest extends InstrumentationTestCase {
 
         public boolean isResponse;
 
-        public String data;
+        public Object data;
 
         public VolleyError errorCode;
 
@@ -25,7 +32,7 @@ public class SampleVolleyManagerTest extends InstrumentationTestCase {
         }
 
         @Override
-        public void onResponse(String response) {
+        public void onResponse(Object response) {
             isResponse = true;
             data = response;
             countDownLatch.countDown();
@@ -59,7 +66,7 @@ public class SampleVolleyManagerTest extends InstrumentationTestCase {
                 getInstrumentation().getTargetContext());
         String url = "http://xxxx.yyyy";
         TestResponseListener listener = new TestResponseListener();
-        instance.getForStringRequest(url, listener);
+        instance.get(url, listener);
 
         listener.countDownLatch.await(5, TimeUnit.SECONDS);
         {
@@ -75,7 +82,7 @@ public class SampleVolleyManagerTest extends InstrumentationTestCase {
                 getInstrumentation().getTargetContext());
         String url = "http://feeds.feedburner.com/blogspot/hsDu";
         TestResponseListener listener = new TestResponseListener();
-        instance.getForStringRequest(url, listener);
+        instance.get(url, listener);
 
         listener.countDownLatch.await(5, TimeUnit.SECONDS);
         {
@@ -97,8 +104,8 @@ public class SampleVolleyManagerTest extends InstrumentationTestCase {
         //request 2
         TestResponseListener listener2 = new TestResponseListener();
 
-        instance.getForStringRequest(url, listener);
-        instance.getForStringRequest(url, listener2);
+        instance.get(url, listener);
+        instance.get(url, listener2);
 
         listener.countDownLatch.await(5, TimeUnit.SECONDS);
         listener2.countDownLatch.await(5, TimeUnit.SECONDS);
@@ -114,5 +121,14 @@ public class SampleVolleyManagerTest extends InstrumentationTestCase {
 
     }
 
+    public void testGetImageLoader() throws Exception {
+        SampleVolleyManager instance = SampleVolleyManager.getInstance(
+                getInstrumentation().getTargetContext());
+        ImageLoader imageLoader = instance.getImageLoader();
+        {
+            assertNotNull(imageLoader);
+        }
+
+    }
 
 }
