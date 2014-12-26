@@ -128,6 +128,7 @@ public class SampleDialogFragmentTest extends
         showDialog();
 
         getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
+        getInstrumentation().waitForIdleSync();
 
         SampleDialogFragment dialog = (SampleDialogFragment) mFragmentManager
                 .findFragmentByTag("test");
@@ -141,6 +142,7 @@ public class SampleDialogFragmentTest extends
         showDialog();
 
         getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_HOME);
+        getInstrumentation().waitForIdleSync();
 
         SampleDialogFragment dialog = (SampleDialogFragment) mFragmentManager
                 .findFragmentByTag("test");
