@@ -56,7 +56,7 @@ public class SampleViewPagerFragment extends Fragment {
         View view = inflater.inflate(R.layout.sample_viewpager, null);
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
 
-        FragmentManager fm = getActivity().getSupportFragmentManager();
+        FragmentManager fm = getChildFragmentManager();
         mViewPager.setAdapter(new SampleDetailPagerAdapter(fm));
         mViewPager.setOnPageChangeListener(mOnPageChangeListener);
         mViewPager.setCurrentItem(mDefaultPosition);
