@@ -1,5 +1,6 @@
 package jp.baroqueworksdev.myapidemo.network;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -13,6 +14,8 @@ import com.android.volley.toolbox.Volley;
 import android.content.Context;
 import android.media.Image;
 import android.widget.ImageView;
+
+import java.util.Map;
 
 public class SampleVolleyManager {
 
@@ -48,6 +51,10 @@ public class SampleVolleyManager {
     }
 
     /**
+     * Request(StringRequest)
+     *
+     * @param url
+     * @param listener
      * @note create a new GET request and add queue
      */
     public void get(String url, final ResponseListener listener) {
@@ -72,6 +79,47 @@ public class SampleVolleyManager {
         } else {
         }
     }
+
+    /**
+     * Request(StringRequest) with params
+     *
+     * @param url
+     * @param listener
+     * @param params
+     * @param headers
+     * @note create a new GET request and add queue
+     */
+    public void get(String url, final ResponseListener listener, final Map<String, String> params
+            , final Map<String, String> headers) {
+
+        StringRequest request = new StringRequest(url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        listener.onResponse(s);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        listener.onErrorResponse(volleyError);
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return headers;
+            }
+        };
+
+        mRequestQueue.add(request);
+    }
+
 
     public ImageListener getImageListener(final ResponseListener listener, final ImageView view,
                                           final int defaultImageResId, final int errorImageResId) {
@@ -102,17 +150,17 @@ public class SampleVolleyManager {
         return imageListener;
     }
 
-    public void get(String url, ImageListener listener){
+    public void get(String url, ImageListener listener) {
         mImageLoader.get(url, listener);
     }
 
-    public void get(String url, ImageListener listener,int maxWidth,int maxHeight){
-        mImageLoader.get(url, listener,maxWidth,maxHeight);
+    public void get(String url, ImageListener listener, int maxWidth, int maxHeight) {
+        mImageLoader.get(url, listener, maxWidth, maxHeight);
     }
 
     public void get(String url, final ResponseListener listener, final ImageView view,
                     final int defaultImageResId, final int errorImageResId) {
-        ImageListener imageListener = getImageListener(listener, view, defaultImageResId,errorImageResId);
+        ImageListener imageListener = getImageListener(listener, view, defaultImageResId, errorImageResId);
         mImageLoader.get(url, imageListener);
     }
 
