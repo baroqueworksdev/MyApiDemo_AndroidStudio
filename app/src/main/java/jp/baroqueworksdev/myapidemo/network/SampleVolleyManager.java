@@ -12,7 +12,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import android.content.Context;
-import android.media.Image;
 import android.widget.ImageView;
 
 import java.util.Map;
@@ -53,41 +52,36 @@ public class SampleVolleyManager {
     /**
      * Request(StringRequest)
      *
-     * @param url
-     * @param listener
-     * @note create a new GET request and add queue
+     * @param url      request url
+     * @param listener listener for Response or Error
      */
     public void get(String url, final ResponseListener listener) {
 
-        if (mRequestQueue != null) {
-            StringRequest request = new StringRequest(url,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String s) {
-                            listener.onResponse(s);
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError volleyError) {
-                            listener.onErrorResponse(volleyError);
-                        }
+        StringRequest request = new StringRequest(url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        listener.onResponse(s);
                     }
-            );
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        listener.onErrorResponse(volleyError);
+                    }
+                }
+        );
 
-            mRequestQueue.add(request);
-        } else {
-        }
+        mRequestQueue.add(request);
     }
 
     /**
      * Request(StringRequest) with params
      *
-     * @param url
-     * @param listener
-     * @param params
-     * @param headers
-     * @note create a new GET request and add queue
+     * @param url      request url
+     * @param listener listener for Response or Error
+     * @param params   value of setting Http Params
+     * @param headers  value of setting Http headers
      */
     public void get(String url, final ResponseListener listener, final Map<String, String> params
             , final Map<String, String> headers) {
@@ -121,6 +115,15 @@ public class SampleVolleyManager {
     }
 
 
+    /**
+     * Generate ImageListener
+     *
+     * @param listener          listener for Response or Error
+     * @param view              ImageView
+     * @param defaultImageResId display image id before Loading
+     * @param errorImageResId   display image id when done error
+     * @return ImageListener
+     */
     public ImageListener getImageListener(final ResponseListener listener, final ImageView view,
                                           final int defaultImageResId, final int errorImageResId) {
 
@@ -150,14 +153,37 @@ public class SampleVolleyManager {
         return imageListener;
     }
 
+    /**
+     * Request(ImageListener) for Getting Image
+     *
+     * @param url      url for Request
+     * @param listener ImageListener
+     */
     public void get(String url, ImageListener listener) {
         mImageLoader.get(url, listener);
     }
 
+    /**
+     * Request(ImageListener) for Getting Image
+     *
+     * @param url       url for Request
+     * @param listener  ImageListener
+     * @param maxWidth  maximum width for Image file
+     * @param maxHeight maximum height for Image file
+     */
     public void get(String url, ImageListener listener, int maxWidth, int maxHeight) {
         mImageLoader.get(url, listener, maxWidth, maxHeight);
     }
 
+    /**
+     * Request(ImageListener) for Getting Image
+     *
+     * @param url               url for Request
+     * @param listener          listener for Response or Error
+     * @param view              ImageView
+     * @param defaultImageResId display image id before Loading
+     * @param errorImageResId   display image id when done error
+     */
     public void get(String url, final ResponseListener listener, final ImageView view,
                     final int defaultImageResId, final int errorImageResId) {
         ImageListener imageListener = getImageListener(listener, view, defaultImageResId, errorImageResId);
@@ -165,6 +191,11 @@ public class SampleVolleyManager {
     }
 
 
+    /**
+     * Get ImageLoader
+     *
+     * @return ImageLoader
+     */
     public ImageLoader getImageLoader() {
         return mImageLoader;
     }
