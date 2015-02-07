@@ -1,16 +1,29 @@
 
 package jp.baroqueworksdev.myapidemo.test.activity;
 
+import android.app.Activity;
+import android.app.Instrumentation.ActivityMonitor;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.NoActivityResumedException;
+import android.support.test.espresso.matcher.ViewMatchers;
+import android.support.test.runner.AndroidJUnit4;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.test.ActivityInstrumentationTestCase2;
+import android.view.KeyEvent;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
 import jp.baroqueworksdev.myapidemo.R;
 import jp.baroqueworksdev.myapidemo.activity.SwipeRefreshLayoutActivity;
 
-import android.app.Activity;
-import android.app.Instrumentation.ActivityMonitor;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.test.ActivityInstrumentationTestCase2;
-import android.test.TouchUtils;
-import android.view.KeyEvent;
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.pressBack;
+import static android.support.test.espresso.action.ViewActions.swipeDown;
 
+@RunWith(AndroidJUnit4.class)
 public class SwipeRefreshLayoutActivityTest extends
         ActivityInstrumentationTestCase2<SwipeRefreshLayoutActivity> {
 
@@ -20,18 +33,15 @@ public class SwipeRefreshLayoutActivityTest extends
         super(SwipeRefreshLayoutActivity.class);
     }
 
-    public SwipeRefreshLayoutActivityTest(Class<SwipeRefreshLayoutActivity> activityClass) {
-        super(activityClass);
-    }
-
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         super.setUp();
+        injectInstrumentation(InstrumentationRegistry.getInstrumentation());
         mActivity = getActivity();
     }
 
-    @Override
-    protected void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         if (!mActivity.isFinishing()) {
             mActivity.finish();
             getInstrumentation().waitForIdleSync();
@@ -40,37 +50,28 @@ public class SwipeRefreshLayoutActivityTest extends
         super.tearDown();
     }
 
+    @Test
     public void testBackKey() {
-        sendKeys(KeyEvent.KEYCODE_BACK);
-        getInstrumentation().waitForIdleSync();
+        try {
+            onView(ViewMatchers.isRoot()).perform(pressBack());
+        } catch (NoActivityResumedException exception) {
+            // // test success
+        }
 
         assertTrue(mActivity.isFinishing());
     }
 
+    @Test
     public void testHomeKey() {
 
+        // onView(ViewMatchers.isRoot()).perform(pressKey(KeyEvent.KEYCODE_HOME));
         sendKeys(KeyEvent.KEYCODE_HOME);
         getInstrumentation().waitForIdleSync();
 
         assertFalse(mActivity.isFinishing());
     }
 
-    public void testStartEndRepeat() {
-        sendKeys(KeyEvent.KEYCODE_BACK);
-        getInstrumentation().waitForIdleSync();
-
-        assertTrue(mActivity.isFinishing());
-
-        for (int i = 0; i < 50; i++) {
-            mActivity = getActivity();
-            getInstrumentation().waitForIdleSync();
-            sendKeys(KeyEvent.KEYCODE_BACK);
-            getInstrumentation().waitForIdleSync();
-
-            assertTrue(mActivity.isFinishing());
-        }
-    }
-
+    @Test
     public void testRefresh() {
         SwipeRefreshLayout refreshLayout = (SwipeRefreshLayout) mActivity
                 .findViewById(R.id.swipe_refresh_widget);
@@ -82,7 +83,8 @@ public class SwipeRefreshLayoutActivityTest extends
         ActivityMonitor monitor = new ActivityMonitor(
                 "jp.baroqueworksdev.myapidemo.activity.SwipeRefreshLayoutActivity", null, false);
         getInstrumentation().addMonitor(monitor);
-        TouchUtils.dragQuarterScreenDown(this, mActivity);
+
+        onView(ViewMatchers.withId(R.id.swipe_refresh_widget)).perform(swipeDown());
         assertTrue(refreshLayout.isRefreshing());
         // wait 2sec
         getInstrumentation().waitForMonitorWithTimeout(monitor, 2000);
@@ -91,6 +93,7 @@ public class SwipeRefreshLayoutActivityTest extends
         assertFalse(refreshLayout.isRefreshing());
     }
 
+    @Test
     public void testClickAndDrag() {
 
     }
