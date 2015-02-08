@@ -34,7 +34,7 @@ public class SampleListFragment extends ListFragment implements OnItemClickListe
 
     public interface onSampleListItemClickListener {
 
-        public void OnItemClicked(int postion);
+        public void OnItemClicked(int position);
     }
 
     @Override
@@ -64,9 +64,9 @@ public class SampleListFragment extends ListFragment implements OnItemClickListe
     }
 
     @Override
-    public void onItemClick(AdapterView<?> arg0, View view, int postion, long id) {
+    public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
         if (mOnSampleListItemClickListener != null) {
-            mOnSampleListItemClickListener.OnItemClicked(postion);
+            mOnSampleListItemClickListener.OnItemClicked(position);
         }
     }
 
@@ -92,7 +92,7 @@ public class SampleListFragment extends ListFragment implements OnItemClickListe
         }
 
         public SampleAdapter(Context context, int textViewResourceId,
-                ArrayList<SampleData> list) {
+                             ArrayList<SampleData> list) {
             super(context, textViewResourceId);
             mInflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);

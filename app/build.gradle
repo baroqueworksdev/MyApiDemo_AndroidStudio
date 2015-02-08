@@ -20,14 +20,19 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
+        debug {
+            testCoverageEnabled = true
+        }
+
     }
 }
 
 dependencies {
     compile 'com.android.support:support-v4:19.1.0'
+    compile project(':modules:volley')
+
+    // for JUnit test
     compile 'com.android.support:support-annotations:21.0.3'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.0'
     androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
-    androidTestCompile 'com.android.support:support-v4:19.1.0'
-    compile project(':modules:volley')
 }
