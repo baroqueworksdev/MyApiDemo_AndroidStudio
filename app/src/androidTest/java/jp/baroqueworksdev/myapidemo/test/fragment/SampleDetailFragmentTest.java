@@ -1,4 +1,4 @@
-package jp.baroqueworksdev.myapidemo.fragment;
+package jp.baroqueworksdev.myapidemo.test.fragment;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 import jp.baroqueworksdev.myapidemo.R;
 import jp.baroqueworksdev.myapidemo.activity.SampleFragmentActivity;
 import jp.baroqueworksdev.myapidemo.data.SampleData;
+import jp.baroqueworksdev.myapidemo.fragment.SampleDetailFragment;
 
 import static org.junit.Assert.*;
 
@@ -40,11 +41,14 @@ public class SampleDetailFragmentTest extends ActivityInstrumentationTestCase2<S
         data0.setName("SampleData 00");
 
         SampleDetailFragment fragment = SampleDetailFragment.newInstance(data0);
+        assertNotNull(fragment);
 
         FragmentActivity activity = getActivity();
+        assertNotNull(activity);
         activity.getSupportFragmentManager().beginTransaction()
                 .add(R.id.container, fragment, null)
                 .commit();
+
 
     }
 

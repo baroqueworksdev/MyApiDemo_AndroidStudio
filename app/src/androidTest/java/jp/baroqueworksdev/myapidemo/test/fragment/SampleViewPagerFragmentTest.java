@@ -1,4 +1,4 @@
-package jp.baroqueworksdev.myapidemo.fragment;
+package jp.baroqueworksdev.myapidemo.test.fragment;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.matcher.ViewMatchers;
@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import jp.baroqueworksdev.myapidemo.R;
 import jp.baroqueworksdev.myapidemo.activity.SampleFragmentActivity;
 import jp.baroqueworksdev.myapidemo.data.SampleData;
+import jp.baroqueworksdev.myapidemo.fragment.SampleViewPagerFragment;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
@@ -52,7 +53,10 @@ public class SampleViewPagerFragmentTest extends ActivityInstrumentationTestCase
 
         SampleViewPagerFragment fragment = SampleViewPagerFragment.newInstance(list, 0);
 
+        assertNotNull(fragment);
+
         FragmentActivity activity = getActivity();
+        assertNotNull(activity);
         activity.getSupportFragmentManager().beginTransaction()
                 .add(R.id.container, fragment, null)
                 .commit();
@@ -61,5 +65,6 @@ public class SampleViewPagerFragmentTest extends ActivityInstrumentationTestCase
             onView(ViewMatchers.withId(R.id.viewpager)).perform(swipeLeft());
             onView(ViewMatchers.withId(R.id.viewpager)).perform(swipeRight());
         }
+        assertNotNull(fragment);
     }
 }
