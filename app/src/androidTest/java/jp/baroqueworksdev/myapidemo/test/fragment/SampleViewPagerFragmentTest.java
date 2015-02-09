@@ -41,7 +41,7 @@ public class SampleViewPagerFragmentTest extends ActivityInstrumentationTestCase
     }
 
     @Test
-    public void pager() {
+    public void testPager() {
         ArrayList<SampleData> list = new ArrayList<SampleData>();
         SampleData data0 = new SampleData();
         data0.setName("SampleData 00");

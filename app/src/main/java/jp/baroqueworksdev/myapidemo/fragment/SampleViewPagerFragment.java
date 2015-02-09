@@ -52,7 +52,7 @@ public class SampleViewPagerFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.sample_viewpager, null);
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
 
@@ -65,13 +65,13 @@ public class SampleViewPagerFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroyView() {
         mViewPager.setAdapter(null);
         mViewPager.setOnPageChangeListener(null);
         mOnPageChangeListener = null;
         mViewPager = null;
         mSamplelist = null;
-        super.onDestroy();
+        super.onDestroyView();
     }
 
     private OnPageChangeListener mOnPageChangeListener = new OnPageChangeListener() {

@@ -36,7 +36,7 @@ public class SampleDetailFragmentTest extends ActivityInstrumentationTestCase2<S
     }
 
     @Test
-    public void construct() {
+    public void testConstruct() {
         SampleData data0 = new SampleData();
         data0.setName("SampleData 00");
 
