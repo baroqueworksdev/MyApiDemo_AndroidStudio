@@ -89,7 +89,7 @@ public class SwipeRefreshLayoutActivityTest extends
         getInstrumentation().addMonitor(monitor);
 
         onView(ViewMatchers.withId(R.id.swipe_refresh_widget)).perform(swipeDown());
-        assertTrue(refreshLayout.isRefreshing());
+        // ex) check display progress bar
         // wait 2sec
         getInstrumentation().waitForMonitorWithTimeout(monitor, 2000);
 

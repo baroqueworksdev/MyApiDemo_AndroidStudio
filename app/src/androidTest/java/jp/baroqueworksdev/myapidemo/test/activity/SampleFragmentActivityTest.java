@@ -1,28 +1,24 @@
 
 package jp.baroqueworksdev.myapidemo.test.activity;
 
-import jp.baroqueworksdev.myapidemo.R;
-import jp.baroqueworksdev.myapidemo.activity.SampleFragmentActivity;
-import jp.baroqueworksdev.myapidemo.activity.SwipeRefreshLayoutActivity;
-
-import android.app.Activity;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.Espresso;
-import android.support.test.espresso.NoActivityResumedException;
-import android.support.test.espresso.matcher.ViewMatchers;
-import android.support.test.runner.AndroidJUnit4;
-import android.test.ActivityInstrumentationTestCase2;
-import android.view.KeyEvent;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import android.app.Activity;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.Espresso;
+import android.support.test.espresso.NoActivityResumedException;
+import android.support.test.runner.AndroidJUnit4;
+import android.test.ActivityInstrumentationTestCase2;
+import android.view.KeyEvent;
+
+import jp.baroqueworksdev.myapidemo.R;
+import jp.baroqueworksdev.myapidemo.activity.SampleFragmentActivity;
+
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.pressBack;
 import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static jp.baroqueworksdev.myapidemo.util.EspressoViewActionUtil.waitForDisplayId;
 
 @RunWith(AndroidJUnit4.class)

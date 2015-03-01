@@ -1,15 +1,35 @@
 
 package jp.baroqueworksdev.myapidemo.test.fragment;
 
-import jp.baroqueworksdev.myapidemo.activity.SampleFragmentActivity;
-import jp.baroqueworksdev.myapidemo.fragment.SampleDialogFragment;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import android.content.DialogInterface;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.app.FragmentManager;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.KeyEvent;
 import android.view.ViewConfiguration;
 
+import jp.baroqueworksdev.myapidemo.R;
+import jp.baroqueworksdev.myapidemo.activity.SampleFragmentActivity;
+import jp.baroqueworksdev.myapidemo.fragment.SampleDialogFragment;
+
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.pressBack;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.pressKey;
+import static android.support.test.espresso.matcher.RootMatchers.isDialog;
+import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static jp.baroqueworksdev.myapidemo.util.EspressoViewActionUtil.waitForDisplayId;
+
+
+@RunWith(AndroidJUnit4.class)
 public class SampleDialogFragmentTest extends
         ActivityInstrumentationTestCase2<SampleFragmentActivity> {
 
@@ -17,21 +37,26 @@ public class SampleDialogFragmentTest extends
 
     private FragmentManager mFragmentManager;
 
-    public SampleDialogFragmentTest(Class<SampleFragmentActivity> activityClass) {
-        super(activityClass);
-    }
-
     public SampleDialogFragmentTest() {
         super(SampleFragmentActivity.class);
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         super.setUp();
+        injectInstrumentation(InstrumentationRegistry.getInstrumentation());
         mActivity = getActivity();
-
-        getInstrumentation().waitForIdleSync();
+        onView(isRoot()).perform(waitForDisplayId(R.id.container, 1000));
         mFragmentManager = mActivity.getSupportFragmentManager();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        if (!mActivity.isFinishing()) {
+            mActivity.finish();
+        }
+        super.tearDown();
+
     }
 
     private void showDialog() {
@@ -45,11 +70,13 @@ public class SampleDialogFragmentTest extends
             }
         });
         getInstrumentation().waitForIdleSync();
+        onView(isRoot()).inRoot(isDialog()).perform(waitForDisplayId(android.R.id.button1, 1000));
     }
 
     /*
      * Create test
      */
+    @Test
     public void testCreateDialog() {
         showDialog();
         SampleDialogFragment dialog = (SampleDialogFragment) mFragmentManager
@@ -64,17 +91,11 @@ public class SampleDialogFragmentTest extends
     /*
      * Click positive button test
      */
+    @Test
     public void testClickPositive() {
         showDialog();
-        mActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                SampleDialogFragment dialog = (SampleDialogFragment) mFragmentManager
-                        .findFragmentByTag("test");
-                dialog.onClick(dialog.getDialog(), DialogInterface.BUTTON_POSITIVE);
-            }
-        });
-        getInstrumentation().waitForIdleSync();
+        // click BUTTON_POSITIVE
+        onView(withText("positive")).inRoot(isDialog()).perform(click());
 
         SampleDialogFragment dialog = (SampleDialogFragment) mFragmentManager
                 .findFragmentByTag("test");
@@ -84,17 +105,11 @@ public class SampleDialogFragmentTest extends
     /*
      * Click negative button test
      */
+    @Test
     public void testClickNegative() {
         showDialog();
-        mActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                SampleDialogFragment dialog = (SampleDialogFragment) mFragmentManager
-                        .findFragmentByTag("test");
-                dialog.onClick(dialog.getDialog(), DialogInterface.BUTTON_NEGATIVE);
-            }
-        });
-        getInstrumentation().waitForIdleSync();
+        // click negative
+        onView(withText("negative")).inRoot(isDialog()).perform(click());
 
         SampleDialogFragment dialog = (SampleDialogFragment) mFragmentManager
                 .findFragmentByTag("test");
@@ -104,17 +119,11 @@ public class SampleDialogFragmentTest extends
     /*
      * Click neutral button test
      */
+    @Test
     public void testClickNeutral() {
         showDialog();
-        mActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                SampleDialogFragment dialog = (SampleDialogFragment) mFragmentManager
-                        .findFragmentByTag("test");
-                dialog.onClick(dialog.getDialog(), DialogInterface.BUTTON_NEUTRAL);
-            }
-        });
-        getInstrumentation().waitForIdleSync();
+        // click negative
+        onView(withText("neutral")).inRoot(isDialog()).perform(click());
 
         SampleDialogFragment dialog = (SampleDialogFragment) mFragmentManager
                 .findFragmentByTag("test");
@@ -124,11 +133,11 @@ public class SampleDialogFragmentTest extends
     /*
      * Click back key test
      */
+    @Test
     public void testClickBackKey() {
         showDialog();
 
-        getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
-        getInstrumentation().waitForIdleSync();
+        pressBack();
 
         SampleDialogFragment dialog = (SampleDialogFragment) mFragmentManager
                 .findFragmentByTag("test");
@@ -138,11 +147,12 @@ public class SampleDialogFragmentTest extends
     /*
      * Click Home key test
      */
+    @Test
     public void testClickHomeKey() {
         showDialog();
 
-        getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_HOME);
-        getInstrumentation().waitForIdleSync();
+        // HOME key
+        onView(isRoot()).inRoot(isDialog()).perform(pressKey(KeyEvent.KEYCODE_HOME));
 
         SampleDialogFragment dialog = (SampleDialogFragment) mFragmentManager
                 .findFragmentByTag("test");

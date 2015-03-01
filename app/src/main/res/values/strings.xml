@@ -15,5 +15,7 @@
     </string>
     <string name="title_activity_sample_volley">App/API/Volley</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_sample_toast">SampleToastActivity</string>
+    <string name="show_toast">show toast</string>
 
 </resources>
