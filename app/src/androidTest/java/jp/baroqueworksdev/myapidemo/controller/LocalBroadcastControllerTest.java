@@ -10,10 +10,14 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 public class LocalBroadcastControllerTest extends InstrumentationTestCase {
-    private class TestBroadcastListener implements LocalBroadcastController.OnLocalBroadcastController {
+
+    private class TestBroadcastListener
+            implements LocalBroadcastController.OnLocalBroadcastController {
 
         private final CountDownLatch countDownLatch;
+
         private boolean isResponse;
+
         private Intent receivedIntent;
 
         public TestBroadcastListener() {
@@ -43,7 +47,8 @@ public class LocalBroadcastControllerTest extends InstrumentationTestCase {
 
             // send Broadcast Intent
             Intent intent = new Intent("test_action");
-            LocalBroadcastManager manager = LocalBroadcastManager.getInstance(getInstrumentation().getTargetContext());
+            LocalBroadcastManager manager = LocalBroadcastManager
+                    .getInstance(getInstrumentation().getTargetContext());
             manager.sendBroadcast(intent);
 
             //wait for receiving

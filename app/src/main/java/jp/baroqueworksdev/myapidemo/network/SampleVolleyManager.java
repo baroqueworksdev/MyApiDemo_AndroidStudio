@@ -125,7 +125,7 @@ public class SampleVolleyManager {
      * @return ImageListener
      */
     public ImageListener getImageListener(final ResponseListener listener, final ImageView view,
-                                          final int defaultImageResId, final int errorImageResId) {
+            final int defaultImageResId, final int errorImageResId) {
 
         ImageListener imageListener = new ImageListener() {
             @Override
@@ -185,8 +185,9 @@ public class SampleVolleyManager {
      * @param errorImageResId   display image id when done error
      */
     public void get(String url, final ResponseListener listener, final ImageView view,
-                    final int defaultImageResId, final int errorImageResId) {
-        ImageListener imageListener = getImageListener(listener, view, defaultImageResId, errorImageResId);
+            final int defaultImageResId, final int errorImageResId) {
+        ImageListener imageListener = getImageListener(listener, view, defaultImageResId,
+                errorImageResId);
         mImageLoader.get(url, imageListener);
     }
 

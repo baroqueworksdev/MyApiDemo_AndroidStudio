@@ -23,10 +23,12 @@ public class SampleVolleyActivity extends Activity {
         final String url = "http://developer.android.com/images/training/system-ui.png";
 
         ImageView view = (ImageView) findViewById(R.id.imageView);
-        SampleVolleyManager.getInstance(this).get(url,new IamgeLoadingListener(), view,R.drawable.ic_launcher,R.drawable.ic_drawer);
+        SampleVolleyManager.getInstance(this)
+                .get(url, new IamgeLoadingListener(), view, R.drawable.ic_launcher,
+                        R.drawable.ic_drawer);
     }
 
-    private class IamgeLoadingListener implements SampleVolleyManager.ResponseListener{
+    private class IamgeLoadingListener implements SampleVolleyManager.ResponseListener {
 
         @Override
         public void onResponse(Object response) {

@@ -142,7 +142,9 @@ public class SampleVolleyManagerTest extends InstrumentationTestCase {
                         getInstrumentation().getTargetContext());
 
                 ImageView view = new ImageView(getInstrumentation().getTargetContext());
-                ImageListener imageListener = instance.getImageListener(listener, view, R.drawable.ic_launcher, R.drawable.ic_drawer);
+                ImageListener imageListener = instance
+                        .getImageListener(listener, view, R.drawable.ic_launcher,
+                                R.drawable.ic_drawer);
                 instance.get(url, imageListener);
             }
         });
@@ -168,7 +170,9 @@ public class SampleVolleyManagerTest extends InstrumentationTestCase {
                         getInstrumentation().getTargetContext());
 
                 ImageView view = new ImageView(getInstrumentation().getTargetContext());
-                ImageListener imageListener = instance.getImageListener(listener, view, R.drawable.ic_launcher, R.drawable.ic_drawer);
+                ImageListener imageListener = instance
+                        .getImageListener(listener, view, R.drawable.ic_launcher,
+                                R.drawable.ic_drawer);
                 instance.get(url, imageListener, 100, 5000);
             }
         });
@@ -195,7 +199,9 @@ public class SampleVolleyManagerTest extends InstrumentationTestCase {
                         getInstrumentation().getTargetContext());
 
                 ImageView view = new ImageView(getInstrumentation().getTargetContext());
-                ImageListener imageListener = instance.getImageListener(listener, view, R.drawable.ic_launcher, R.drawable.ic_drawer);
+                ImageListener imageListener = instance
+                        .getImageListener(listener, view, R.drawable.ic_launcher,
+                                R.drawable.ic_drawer);
                 instance.get(url, imageListener, 5000, 100);
             }
         });

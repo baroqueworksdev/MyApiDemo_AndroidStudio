@@ -15,10 +15,18 @@ import jp.baroqueworksdev.myapidemo.activity.SampleFragmentActivity;
 import jp.baroqueworksdev.myapidemo.data.SampleData;
 import jp.baroqueworksdev.myapidemo.fragment.SampleDetailFragment;
 
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static jp.baroqueworksdev.myapidemo.util.EspressoMatcherUtil.withTextColor;
+import static jp.baroqueworksdev.myapidemo.util.EspressoViewActionUtil.waitForDisplayId;
 import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
-public class SampleDetailFragmentTest extends ActivityInstrumentationTestCase2<SampleFragmentActivity> {
+public class SampleDetailFragmentTest
+        extends ActivityInstrumentationTestCase2<SampleFragmentActivity> {
 
     public SampleDetailFragmentTest() {
         super(SampleFragmentActivity.class);
@@ -48,6 +56,11 @@ public class SampleDetailFragmentTest extends ActivityInstrumentationTestCase2<S
         activity.getSupportFragmentManager().beginTransaction()
                 .add(R.id.container, fragment, null)
                 .commit();
+
+        // wait for display and check text color
+        onView(isRoot()).perform(waitForDisplayId(R.id.name, 1000));
+
+        onView(withId(R.id.name)).check(matches(withTextColor(android.R.color.black)));
 
 
     }

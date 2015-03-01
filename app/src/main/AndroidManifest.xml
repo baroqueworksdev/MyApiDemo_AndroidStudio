@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="jp.baroqueworksdev.myapidemo"
-    android:versionCode="1"
-    android:versionName="1.0">
+          package="jp.baroqueworksdev.myapidemo"
+          android:versionCode="1"
+          android:versionName="1.0">
 
     <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="19" />
+            android:minSdkVersion="14"
+            android:targetSdkVersion="19"/>
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+            android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+            android:maxSdkVersion="18"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18" />
+            android:name="android.permission.READ_EXTERNAL_STORAGE"
+            android:maxSdkVersion="18"/>
 
     <application
-        android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+            android:allowBackup="true"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme">
         <activity
-            android:name=".MyApiDemosActivity"
-            android:label="@string/app_name">
+                android:name=".MyApiDemosActivity"
+                android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity android:name=".activity.SampleFragmentActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
 
@@ -47,48 +47,48 @@
         <!-- Activity Samples -->
 
         <activity
-            android:name=".activity.SlidePanelSampleActivity"
-            android:label="@string/activity_slide_panel">
+                android:name=".activity.SlidePanelSampleActivity"
+                android:label="@string/activity_slide_panel">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE"/>
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.SampleDialogFragmentActivity"
-            android:label="@string/activity_dialog_fragment">
+                android:name=".activity.SampleDialogFragmentActivity"
+                android:label="@string/activity_dialog_fragment">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE"/>
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.DrawerLayoutActivity"
-            android:label="@string/activity_drawerlayout">
+                android:name=".activity.DrawerLayoutActivity"
+                android:label="@string/activity_drawerlayout">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE"/>
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.SwipeRefreshLayoutActivity"
-            android:label="@string/activity_swiperefreshlayout">
+                android:name=".activity.SwipeRefreshLayoutActivity"
+                android:label="@string/activity_swiperefreshlayout">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE"/>
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.SampleVolleyActivity"
-            android:label="@string/title_activity_sample_volley">
+                android:name=".activity.SampleVolleyActivity"
+                android:label="@string/title_activity_sample_volley">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE"/>
             </intent-filter>
         </activity>
     </application>

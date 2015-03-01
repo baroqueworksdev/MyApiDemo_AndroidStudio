@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import jp.baroqueworksdev.myapidemo.R;
 
 public class SampleFragmentActivity extends FragmentActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

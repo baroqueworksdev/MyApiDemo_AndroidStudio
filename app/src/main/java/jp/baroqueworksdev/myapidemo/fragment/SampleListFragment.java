@@ -92,7 +92,7 @@ public class SampleListFragment extends ListFragment implements OnItemClickListe
         }
 
         public SampleAdapter(Context context, int textViewResourceId,
-                             ArrayList<SampleData> list) {
+                ArrayList<SampleData> list) {
             super(context, textViewResourceId);
             mInflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);

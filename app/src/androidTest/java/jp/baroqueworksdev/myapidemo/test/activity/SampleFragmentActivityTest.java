@@ -1,11 +1,13 @@
 
 package jp.baroqueworksdev.myapidemo.test.activity;
 
+import jp.baroqueworksdev.myapidemo.R;
 import jp.baroqueworksdev.myapidemo.activity.SampleFragmentActivity;
 import jp.baroqueworksdev.myapidemo.activity.SwipeRefreshLayoutActivity;
 
 import android.app.Activity;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.Espresso;
 import android.support.test.espresso.NoActivityResumedException;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.runner.AndroidJUnit4;
@@ -19,6 +21,9 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.pressBack;
+import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static jp.baroqueworksdev.myapidemo.util.EspressoViewActionUtil.waitForDisplayId;
 
 @RunWith(AndroidJUnit4.class)
 public class SampleFragmentActivityTest extends
@@ -43,7 +48,8 @@ public class SampleFragmentActivityTest extends
     public void testBackKey() {
         Activity activity = getActivity();
         try {
-            onView(ViewMatchers.isRoot()).perform(pressBack());
+            onView(isRoot()).perform(waitForDisplayId(R.id.container, 1000));
+            Espresso.pressBack();
         } catch (NoActivityResumedException exception) {
             // // test success
         }
@@ -54,6 +60,7 @@ public class SampleFragmentActivityTest extends
     @Test
     public void testHomeKey() {
         Activity activity = getActivity();
+        onView(isRoot()).perform(waitForDisplayId(R.id.container, 1000));
 
         sendKeys(KeyEvent.KEYCODE_HOME);
         getInstrumentation().waitForIdleSync();

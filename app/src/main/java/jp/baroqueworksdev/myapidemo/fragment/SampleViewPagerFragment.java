@@ -52,7 +52,7 @@ public class SampleViewPagerFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.sample_viewpager, null);
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
 

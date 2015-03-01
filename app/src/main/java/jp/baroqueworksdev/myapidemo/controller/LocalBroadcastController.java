@@ -7,11 +7,15 @@ import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 
 public class LocalBroadcastController {
+
     private LocalBroadcastManager mLocalBroadcastManager;
+
     private IntentFilter mIntentFilter;
+
     private OnLocalBroadcastController mOnLocalBroadcastController;
 
     public interface OnLocalBroadcastController {
+
         public void onReceive(Context context, Intent intent);
     }
 
@@ -22,7 +26,8 @@ public class LocalBroadcastController {
      * @param filter   Intent Filter which need to receive an action
      * @param listener onReceive
      */
-    public LocalBroadcastController(Context context, IntentFilter filter, OnLocalBroadcastController listener) {
+    public LocalBroadcastController(Context context, IntentFilter filter,
+            OnLocalBroadcastController listener) {
         mLocalBroadcastManager = LocalBroadcastManager.getInstance(context);
         mIntentFilter = filter;
         mOnLocalBroadcastController = listener;

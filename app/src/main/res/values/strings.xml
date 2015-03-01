@@ -10,7 +10,9 @@
     <string name="activity_dialog_fragment">App/Dialog/DialogFragment</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="sildingview_contests">        sidingview\nsidingview\nsidingview\nsidingview\nsidingview\nsidingview\nsidingview\nsidingview\nsidingview\nsidingview\nsidingview\n</string>
+    <string name="sildingview_contests">
+        sidingview\nsidingview\nsidingview\nsidingview\nsidingview\nsidingview\nsidingview\nsidingview\nsidingview\nsidingview\nsidingview\n
+    </string>
     <string name="title_activity_sample_volley">App/API/Volley</string>
     <string name="hello_world">Hello world!</string>
 

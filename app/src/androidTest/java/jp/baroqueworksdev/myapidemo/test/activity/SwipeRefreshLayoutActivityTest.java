@@ -22,6 +22,9 @@ import jp.baroqueworksdev.myapidemo.activity.SwipeRefreshLayoutActivity;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.pressBack;
 import static android.support.test.espresso.action.ViewActions.swipeDown;
+import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static jp.baroqueworksdev.myapidemo.util.EspressoViewActionUtil.waitForDisplayId;
 
 @RunWith(AndroidJUnit4.class)
 public class SwipeRefreshLayoutActivityTest extends
@@ -38,6 +41,7 @@ public class SwipeRefreshLayoutActivityTest extends
         super.setUp();
         injectInstrumentation(InstrumentationRegistry.getInstrumentation());
         mActivity = getActivity();
+        onView(isRoot()).perform(waitForDisplayId(R.id.swipe_refresh_widget, 1000));
     }
 
     @After
@@ -53,7 +57,7 @@ public class SwipeRefreshLayoutActivityTest extends
     @Test
     public void testBackKey() {
         try {
-            onView(ViewMatchers.isRoot()).perform(pressBack());
+            onView(isRoot()).perform(pressBack());
         } catch (NoActivityResumedException exception) {
             // // test success
         }
