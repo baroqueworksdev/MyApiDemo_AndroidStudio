@@ -59,6 +59,13 @@ public class EspressoMatcherUtil {
         };
     }
 
+    /**
+     * /**
+     * Returns a matcher that matches a descendant of {@link TextView} that has the hint text color
+     * associated with the given resource id.
+     *
+     * @param resourceId color res id
+     */
     public static Matcher<View> withTextHintColor(final int resourceId) {
 
         return new BoundedMatcher<View, TextView>(TextView.class) {
