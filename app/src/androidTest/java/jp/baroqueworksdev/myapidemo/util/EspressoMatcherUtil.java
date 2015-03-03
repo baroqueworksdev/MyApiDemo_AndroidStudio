@@ -35,11 +35,7 @@ public class EspressoMatcherUtil {
                     }
                 }
 
-                if (expectedColor != -1) {
-                    return (expectedColor == textView.getCurrentTextColor());
-                } else {
-                    return false;
-                }
+                return expectedColor != -1 && expectedColor == textView.getCurrentTextColor();
             }
 
             @Override
@@ -84,11 +80,8 @@ public class EspressoMatcherUtil {
                         // view could be from a context unaware of the resource id.
                     }
                 }
-                if (expectedColor != -1) {
-                    return (expectedColor == textView.getCurrentHintTextColor());
-                } else {
-                    return false;
-                }
+
+                return expectedColor != -1 && expectedColor == textView.getCurrentHintTextColor();
             }
 
             @Override
